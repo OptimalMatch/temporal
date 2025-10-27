@@ -79,6 +79,19 @@ This adds support for:
 - Downloading models from HuggingFace Hub
 - HuggingFace ecosystem integration
 
+### With Data Fetching Support
+
+```bash
+pip install temporal-forecasting[data]
+```
+
+This adds support for:
+- Fetching stock prices from Yahoo Finance
+- Fetching cryptocurrency data (Bitcoin, Ethereum, etc.)
+- Downloading datasets from Kaggle
+- Technical indicators (SMA, RSI, MACD, Bollinger Bands)
+- Data preprocessing utilities
+
 ### From Source
 
 ```bash
@@ -98,7 +111,8 @@ pip install -e .
 
 ### Optional Dependencies
 
-- HuggingFace: `transformers>=4.30.0`, `huggingface-hub>=0.16.0`
+- **HuggingFace**: `transformers>=4.30.0`, `huggingface-hub>=0.16.0`
+- **Data Fetching**: `yfinance>=0.2.0`, `pandas>=1.3.0`, `scikit-learn>=1.0.0`, `kagglehub>=0.2.0`
 
 ## Quick Start
 
@@ -252,6 +266,38 @@ This demonstrates:
 - Uploading models to share with the community
 
 For complete guide, see [HUGGINGFACE_INTEGRATION.md](HUGGINGFACE_INTEGRATION.md).
+
+### Stock Price Forecasting
+
+See `examples/stock_forecasting.py` for real stock data forecasting:
+
+```bash
+cd examples
+python stock_forecasting.py
+```
+
+This demonstrates:
+- Fetching stock data from Yahoo Finance
+- Training on Apple (AAPL) stock prices
+- 5-day price forecasting
+- Model evaluation and visualization
+
+### Cryptocurrency Forecasting
+
+See `examples/crypto_forecasting.py` for Bitcoin and crypto forecasting:
+
+```bash
+cd examples
+python crypto_forecasting.py
+```
+
+This demonstrates:
+- Fetching Bitcoin data
+- Training on cryptocurrency prices
+- 7-day price forecasting
+- Multi-crypto comparison
+
+For complete guide on data fetching, see [DATA_SOURCES.md](DATA_SOURCES.md).
 
 ## Model Configuration
 
