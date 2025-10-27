@@ -61,7 +61,7 @@ This guide explains how to publish the Temporal package to PyPI.
    ```bash
    pip install --index-url https://test.pypi.org/simple/ \
        --extra-index-url https://pypi.org/simple/ \
-       temporal-forecasting
+       temporal
    ```
 
 3. **Test the installation**:
@@ -77,11 +77,11 @@ This guide explains how to publish the Temporal package to PyPI.
    ```
 
 2. **Verify on PyPI**:
-   - Visit: https://pypi.org/project/temporal-forecasting/
+   - Visit: https://pypi.org/project/temporal/
 
 3. **Install from PyPI**:
    ```bash
-   pip install temporal-forecasting
+   pip install temporal
    ```
 
 ## Version Management
@@ -128,13 +128,13 @@ twine upload dist/*                        # Then production
 pip install -e .
 
 # Install from PyPI
-pip install temporal-forecasting
+pip install temporal
 
 # Install specific version
-pip install temporal-forecasting==0.1.0
+pip install temporal==0.1.0
 
 # Upgrade to latest
-pip install --upgrade temporal-forecasting
+pip install --upgrade temporal
 ```
 
 ## Troubleshooting
@@ -163,9 +163,9 @@ Ensure dependencies are available on PyPI (not local packages).
 
 ## Package Information
 
-- **Package name**: `temporal-forecasting`
+- **Package name**: `temporal`
 - **Import name**: `temporal`
-- **PyPI URL**: https://pypi.org/project/temporal-forecasting/
+- **PyPI URL**: https://pypi.org/project/temporal/
 - **Repository**: https://github.com/OptimalMatch/temporal
 
 ## Security Notes

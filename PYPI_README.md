@@ -2,7 +2,7 @@
 
 ## Package Information
 
-- **Package Name**: `temporal-forecasting`
+- **Package Name**: `temporal`
 - **Version**: 0.1.0
 - **Status**: ✅ Built successfully
 
@@ -17,7 +17,7 @@ Generated distributions:
 ### From PyPI (when published)
 
 ```bash
-pip install temporal-forecasting
+pip install temporal
 ```
 
 ### From Source
