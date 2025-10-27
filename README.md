@@ -159,9 +159,27 @@ trainer = TemporalTrainer(
 history = trainer.fit(
     train_loader=train_loader,
     num_epochs=100,
-    early_stopping_patience=10
+    early_stopping_patience=10,
+    save_path="best_model.pt"  # Automatically saves best model
 )
 ```
+
+### Saving and Loading Models
+
+```python
+# Save trained model
+torch.save(model.state_dict(), 'temporal_model.pt')
+
+# Load model for inference
+model = Temporal(input_dim=1, forecast_horizon=24)
+model.load_state_dict(torch.load('temporal_model.pt'))
+model.eval()
+
+# Make predictions
+forecast = model.forecast(x)
+```
+
+For complete guide on model persistence, see [MODEL_PERSISTENCE.md](MODEL_PERSISTENCE.md).
 
 ## Examples
 
@@ -188,6 +206,20 @@ See `examples/multivariate_example.py` for forecasting multiple correlated featu
 cd examples
 python multivariate_example.py
 ```
+
+### Model Persistence
+
+See `examples/model_persistence_example.py` for saving and loading trained models:
+
+```bash
+cd examples
+python model_persistence_example.py
+```
+
+This demonstrates:
+- Training and saving a model with all components
+- Loading saved models for inference
+- Production-ready model deployment
 
 ## Model Configuration
 
