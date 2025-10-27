@@ -21,7 +21,7 @@ from .utils import (
     LearningRateScheduler
 )
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 # Try to import HuggingFace interfaces (optional)
 try:
