@@ -62,6 +62,12 @@ Each layer includes:
 
 ## Installation
 
+### From PyPI
+
+```bash
+pip install temporal-forecasting
+```
+
 ### From Source
 
 ```bash
@@ -77,6 +83,7 @@ pip install -e .
 - PyTorch >= 2.0.0
 - NumPy >= 1.20.0
 - tqdm >= 4.60.0
+- matplotlib >= 3.3.0
 
 ## Quick Start
 
