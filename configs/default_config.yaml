@@ -1,0 +1,61 @@
+# Default configuration for Temporal model
+
+# Model Architecture
+model:
+  input_dim: 1
+  d_model: 256
+  num_encoder_layers: 4
+  num_decoder_layers: 4
+  num_heads: 8
+  d_ff: 1024
+  forecast_horizon: 24
+  max_seq_len: 5000
+  dropout: 0.1
+  use_learnable_pe: false
+
+# Data Processing
+data:
+  lookback: 96
+  forecast_horizon: 24
+  stride: 1
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  normalization: "standard"  # standard, minmax, robust
+
+# Training
+training:
+  batch_size: 32
+  num_epochs: 100
+  learning_rate: 0.0001
+  weight_decay: 0.00001
+  grad_clip: 1.0
+  early_stopping_patience: 10
+  scheduler: "plateau"  # plateau, warmup, cosine
+  warmup_steps: 4000
+
+# Optimizer
+optimizer:
+  type: "adamw"
+  betas: [0.9, 0.999]
+  eps: 1e-8
+
+# Loss Function
+loss:
+  type: "mse"  # mse, mae, huber
+
+# Device
+device: "cuda"  # cuda, cpu
+
+# Paths
+paths:
+  data_dir: "data/"
+  save_dir: "checkpoints/"
+  log_dir: "logs/"
+  results_dir: "results/"
+
+# Logging
+logging:
+  log_interval: 10
+  save_interval: 5
+  visualize: true
