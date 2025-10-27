@@ -59,6 +59,21 @@ docs = [
     "sphinx>=4.0.0",
     "sphinx-rtd-theme>=1.0.0",
 ]
+huggingface = [
+    "transformers>=4.30.0",
+    "huggingface-hub>=0.16.0",
+]
+all = [
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+    "mypy>=0.950",
+    "ipython>=8.0.0",
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+    "transformers>=4.30.0",
+    "huggingface-hub>=0.16.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/OptimalMatch/temporal"

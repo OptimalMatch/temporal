@@ -68,6 +68,17 @@ Each layer includes:
 pip install temporal-forecasting
 ```
 
+### With HuggingFace Support
+
+```bash
+pip install temporal-forecasting[huggingface]
+```
+
+This adds support for:
+- Uploading models to HuggingFace Hub
+- Downloading models from HuggingFace Hub
+- HuggingFace ecosystem integration
+
 ### From Source
 
 ```bash
@@ -84,6 +95,10 @@ pip install -e .
 - NumPy >= 1.20.0
 - tqdm >= 4.60.0
 - matplotlib >= 3.3.0
+
+### Optional Dependencies
+
+- HuggingFace: `transformers>=4.30.0`, `huggingface-hub>=0.16.0`
 
 ## Quick Start
 
@@ -220,6 +235,23 @@ This demonstrates:
 - Training and saving a model with all components
 - Loading saved models for inference
 - Production-ready model deployment
+
+### HuggingFace Integration
+
+See `examples/huggingface_example.py` for HuggingFace Hub integration:
+
+```bash
+cd examples
+python huggingface_example.py
+```
+
+This demonstrates:
+- Creating HuggingFace-compatible models
+- Saving in HuggingFace format
+- Loading from HuggingFace Hub
+- Uploading models to share with the community
+
+For complete guide, see [HUGGINGFACE_INTEGRATION.md](HUGGINGFACE_INTEGRATION.md).
 
 ## Model Configuration
 
