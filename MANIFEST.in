@@ -1,6 +1,5 @@
 # Include documentation files
 include README.md
-include LICENSE
 include QUICKSTART.md
 include ARCHITECTURE.md
 include DIAGRAMS.md
