@@ -56,8 +56,19 @@ def fetch_stock_data(
     # Reset index to make Date a column
     data = data.reset_index()
 
-    # Standardize column names
-    data.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    # Standardize column names based on what's available
+    # yfinance may return different columns depending on the asset type
+    if len(data.columns) == 7:
+        # Standard format with Adj Close
+        data.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    elif len(data.columns) == 6:
+        # Some assets (like crypto) don't have Adj Close
+        data.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
+        # Add Adj Close as a copy of Close for consistency
+        data['Adj Close'] = data['Close']
+    else:
+        # Fallback: keep original column names
+        pass
 
     return data
 
