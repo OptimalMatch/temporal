@@ -1,0 +1,91 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "temporal-forecasting"
+version = "0.1.0"
+description = "A transformer-based model for time series forecasting inspired by modern attention mechanisms"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Unidatum Integrated Products LLC", email = "alex@unidatum.com"}
+]
+maintainers = [
+    {name = "Alex Chang", email = "alex@unidatum.com"}
+]
+keywords = [
+    "time-series",
+    "forecasting",
+    "transformer",
+    "deep-learning",
+    "attention-mechanism",
+    "pytorch",
+    "machine-learning",
+    "neural-network"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "torch>=2.0.0",
+    "numpy>=1.20.0",
+    "tqdm>=4.60.0",
+    "matplotlib>=3.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+    "mypy>=0.950",
+    "ipython>=8.0.0",
+]
+docs = [
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/OptimalMatch/temporal"
+Documentation = "https://github.com/OptimalMatch/temporal#readme"
+Repository = "https://github.com/OptimalMatch/temporal"
+Issues = "https://github.com/OptimalMatch/temporal/issues"
+Changelog = "https://github.com/OptimalMatch/temporal/releases"
+
+[tool.setuptools]
+packages = ["temporal"]
+
+[tool.setuptools.package-data]
+temporal = ["py.typed"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
