@@ -23,6 +23,18 @@ from .utils import (
 
 __version__ = "0.1.0"
 
+# Try to import HuggingFace interfaces (optional)
+try:
+    from .hf_interface import (
+        TemporalConfig,
+        TemporalForForecasting,
+        TemporalHubMixin,
+        create_hf_model
+    )
+    _HF_AVAILABLE = True
+except ImportError:
+    _HF_AVAILABLE = False
+
 __all__ = [
     "Temporal",
     "MultiHeadAttention",
@@ -43,3 +55,12 @@ __all__ = [
     "EarlyStopping",
     "LearningRateScheduler",
 ]
+
+# Add HuggingFace interfaces if available
+if _HF_AVAILABLE:
+    __all__.extend([
+        "TemporalConfig",
+        "TemporalForForecasting",
+        "TemporalHubMixin",
+        "create_hf_model",
+    ])
