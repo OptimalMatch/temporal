@@ -441,9 +441,15 @@ Dataset class for time series data.
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+**Important:** By contributing to this project, you agree to the terms of the [Contributor Assignment Agreement (CAA)](CONTRIBUTOR_AGREEMENT.md), which assigns copyright of your contributions to Unidatum Integrated Products LLC. Please include the CAA statement in your pull request.
+
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the GNU General Public License v3.0 (GPLv3) - see the [LICENSE](LICENSE) file for details.
+
+Copyright (C) 2025 Unidatum Integrated Products LLC
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 ## Citation
 
