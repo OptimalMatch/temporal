@@ -543,6 +543,12 @@ Copyright (C) 2025 Unidatum Integrated Products LLC
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
+### Commercial Licensing
+
+Companies that cannot release their source code under the GPLv3 may purchase a commercial license from Unidatum Integrated Products LLC. A commercial license grants the right to use this software in closed-source, proprietary projects without the requirement to disclose source code.
+
+For commercial licensing inquiries, please contact: licensing@unidatum.com
+
 ## Patents
 
 This software is subject to a pending patent application:
