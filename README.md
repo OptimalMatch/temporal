@@ -451,6 +451,15 @@ Copyright (C) 2025 Unidatum Integrated Products LLC
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
+## Patents
+
+This software is subject to a pending patent application:
+
+**Transformer-based Time Series Forecasting System and Method**
+US Patent Application No. 63/910,189 (Filed November 3, 2025)
+
+The patent covers specific methods and systems related to transformer-based time series forecasting. Use of this software under the GPLv3 license includes the patent license provisions specified in Section 11 of the GPLv3. For more information, see the [PATENTS](PATENTS) file.
+
 ## Citation
 
 If you use this code in your research, please cite:
