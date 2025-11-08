@@ -23,6 +23,7 @@ from torch.utils.data import Dataset, DataLoader
 from typing import Optional, Callable, Dict, List
 import numpy as np
 from tqdm import tqdm
+from torch.cuda.amp import autocast, GradScaler
 
 
 class TimeSeriesDataset(Dataset):
@@ -90,13 +91,18 @@ class TemporalTrainer:
         optimizer: torch.optim.Optimizer,
         criterion: nn.Module = None,
         device: str = "cuda" if torch.cuda.is_available() else "cpu",
-        grad_clip: Optional[float] = 1.0
+        grad_clip: Optional[float] = 1.0,
+        use_amp: bool = True
     ):
         self.model = model.to(device)
         self.optimizer = optimizer
         self.criterion = criterion or nn.MSELoss()
         self.device = device
         self.grad_clip = grad_clip
+        self.use_amp = use_amp and torch.cuda.is_available()
+
+        # Initialize GradScaler for mixed precision training
+        self.scaler = GradScaler() if self.use_amp else None
 
         self.train_losses = []
         self.val_losses = []
@@ -122,21 +128,37 @@ class TemporalTrainer:
             decoder_input = decoder_input.to(self.device)
             target_output = target_output.to(self.device)
 
-            # Forward pass
             self.optimizer.zero_grad()
-            output = self.model(src, decoder_input)
 
-            # Compute loss
-            loss = self.criterion(output, target_output)
+            # Mixed precision training
+            if self.use_amp:
+                with autocast():
+                    output = self.model(src, decoder_input)
+                    loss = self.criterion(output, target_output)
 
-            # Backward pass
-            loss.backward()
+                # Backward pass with gradient scaling
+                self.scaler.scale(loss).backward()
 
-            # Gradient clipping
-            if self.grad_clip is not None:
-                torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.grad_clip)
+                # Gradient clipping
+                if self.grad_clip is not None:
+                    self.scaler.unscale_(self.optimizer)
+                    torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.grad_clip)
 
-            self.optimizer.step()
+                self.scaler.step(self.optimizer)
+                self.scaler.update()
+            else:
+                # Standard training
+                output = self.model(src, decoder_input)
+                loss = self.criterion(output, target_output)
+
+                # Backward pass
+                loss.backward()
+
+                # Gradient clipping
+                if self.grad_clip is not None:
+                    torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.grad_clip)
+
+                self.optimizer.step()
 
             total_loss += loss.item()
             num_batches += 1
