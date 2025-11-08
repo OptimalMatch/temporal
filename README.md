@@ -299,6 +299,98 @@ This demonstrates:
 
 For complete guide on data fetching, see [DATA_SOURCES.md](DATA_SOURCES.md).
 
+## Reference Implementations
+
+The following projects demonstrate real-world applications built using the Temporal forecasting library. These implementations showcase how to integrate Temporal into production systems and can serve as templates for your own projects.
+
+### Temporal Trading Agents
+
+**Repository:** [github.com/OptimalMatch/temporal-trading-agents](https://github.com/OptimalMatch/temporal-trading-agents)
+
+A next-generation trading system that combines deep learning time-series forecasting with ensemble methods and multi-strategy consensus voting to predict market movements and generate trading signals.
+
+#### Features
+
+- **Multi-Horizon Forecasting**: Separate ensembles for 3-day, 7-day, 14-day, and 21-day predictions
+- **Ensemble Learning**: Combines 5-8 models per time horizon with confidence quantification
+- **8-Strategy Consensus System**: Analyzes predictions using gradient analysis, confidence weighting, volatility sizing, momentum, swing trading, risk-adjusted metrics, mean reversion, and multi-timeframe alignment
+- **Production-Ready Platform**: React dashboard with FastAPI backend, MongoDB, and Docker deployment
+- **Risk Management**: Dynamic position sizing, VaR calculations, and Sortino ratio analysis
+
+#### Using Temporal in Your Project
+
+Add Temporal to your `requirements.txt`:
+
+```txt
+temporal-forecasting>=0.3.1
+```
+
+Example usage from the trading agents implementation:
+
+```python
+from temporal import Temporal, TemporalTrainer, TimeSeriesDataset
+from temporal.data_sources import fetch_crypto_data
+import torch
+
+# Fetch cryptocurrency data
+data = fetch_crypto_data('BTC-USD', period='2y')
+
+# Create and train ensemble of models for different horizons
+horizons = [3, 7, 14, 21]  # days
+models = {}
+
+for horizon in horizons:
+    # Prepare dataset
+    dataset = TimeSeriesDataset(
+        data,
+        lookback=96,
+        forecast_horizon=horizon * 24,  # Convert days to hours
+        stride=1
+    )
+
+    # Create model
+    model = Temporal(
+        input_dim=data.shape[1],
+        d_model=256,
+        num_encoder_layers=4,
+        num_decoder_layers=4,
+        num_heads=8,
+        forecast_horizon=horizon * 24
+    )
+
+    # Train model
+    trainer = TemporalTrainer(model, optimizer=torch.optim.AdamW(model.parameters()))
+    history = trainer.fit(train_loader, num_epochs=100)
+
+    models[f'{horizon}d'] = model
+
+# Generate multi-horizon forecasts
+forecasts = {}
+for horizon, model in models.items():
+    forecast = model.forecast(recent_data)
+    forecasts[horizon] = forecast
+
+# Use forecasts for trading strategy consensus voting
+# (See temporal-trading-agents for full strategy implementation)
+```
+
+#### Learn More
+
+- **Documentation**: See the [temporal-trading-agents README](https://github.com/OptimalMatch/temporal-trading-agents#readme)
+- **Live Demo**: Follow the Docker setup instructions for a complete trading dashboard
+- **Strategies**: Review the 8-strategy consensus voting system for signal generation
+
+---
+
+### Contributing Your Implementation
+
+Have you built something with Temporal? We'd love to feature your project! Submit a pull request adding your implementation to this section, including:
+
+- Project description and repository link
+- Key features and use cases
+- Code example showing Temporal integration
+- Any unique approaches or optimizations
+
 ## Model Configuration
 
 ### Parameters
