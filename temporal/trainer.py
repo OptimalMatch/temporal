@@ -120,6 +120,7 @@ class TemporalTrainer:
         self.model.train()
         total_loss = 0.0
         num_batches = 0
+        num_skipped = 0
 
         progress_bar = tqdm(dataloader, desc="Training")
 
@@ -136,6 +137,12 @@ class TemporalTrainer:
                     output = self.model(src, decoder_input)
                     loss = self.criterion(output, target_output)
 
+                # Check for NaN loss - skip this batch if NaN to prevent weight corruption
+                if torch.isnan(loss) or torch.isinf(loss):
+                    num_skipped += 1
+                    progress_bar.set_postfix({"loss": float('nan'), "skipped": num_skipped})
+                    continue
+
                 # Backward pass with gradient scaling
                 self.scaler.scale(loss).backward()
 
@@ -151,6 +158,12 @@ class TemporalTrainer:
                 output = self.model(src, decoder_input)
                 loss = self.criterion(output, target_output)
 
+                # Check for NaN loss - skip this batch if NaN to prevent weight corruption
+                if torch.isnan(loss) or torch.isinf(loss):
+                    num_skipped += 1
+                    progress_bar.set_postfix({"loss": float('nan'), "skipped": num_skipped})
+                    continue
+
                 # Backward pass
                 loss.backward()
 
@@ -165,7 +178,10 @@ class TemporalTrainer:
 
             progress_bar.set_postfix({"loss": loss.item()})
 
-        avg_loss = total_loss / num_batches
+        if num_skipped > 0:
+            print(f"⚠️  Skipped {num_skipped} batches with NaN/inf loss out of {num_batches + num_skipped} total")
+
+        avg_loss = total_loss / num_batches if num_batches > 0 else float('nan')
         self.train_losses.append(avg_loss)
 
         return avg_loss
